@@ -1,0 +1,33 @@
+{
+  "name": "estatehub",
+  "version": "1.0.0",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node api/index.js",
+    "dev": "nodemon api/index.js"
+  },
+  "homepage": "https://github.com/CodingWithLaiba/EstateHub#readme",
+  "bugs": {
+    "url": "https://github.com/CodingWithLaiba/EstateHub/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CodingWithLaiba/EstateHub.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "jsonwebtoken": "^9.0.3",
+    "mongoose": "^9.7.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.14"
+  }
+}

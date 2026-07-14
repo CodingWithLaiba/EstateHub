@@ -6,6 +6,7 @@ import {
   signInStart,
   signInSuccess,
 } from "../redux/user/userSlice.js";
+import OAuth from "../components/OAuth.jsx";
 
 export default function SignIn() {
   const [email, setEmail] = useState("");
@@ -59,10 +60,11 @@ export default function SignIn() {
         />
         <button
           disabled={loading}
-          className="bg-slate-700 uppercase text-white p-3 rounded-lg hover:opacity-95"
+          className="bg-slate-700 uppercase text-white p-3 rounded-lg hover:opacity-95 cursor-pointer"
         >
           {loading ? "Loading..." : "Sign In"}
         </button>
+        <OAuth/>
       </form>
       <div className="flex gap-1.5 mt-2">
         <p>Dont Have an account?</p>

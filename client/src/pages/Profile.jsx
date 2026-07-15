@@ -10,7 +10,7 @@ import {
   deleteUserSuccess,
   signOutUserStart,
 } from "../redux/user/userSlice";
-// import { Link } from "react-router-dom";
+ import { Link } from "react-router-dom";
 
 export default function Profile() {
   const fileRef = useRef(null);
@@ -20,8 +20,8 @@ export default function Profile() {
   const [fileUploadError, setFileUploadError] = useState(false);
   const [formData, setFormData] = useState({});
   const [updateSuccess, setUpdateSuccess] = useState(false);
-  // const [showListingsError, setShowListingsError] = useState(false);
-  // const [userListings, setUserListings] = useState([]);
+   const [showListingsError, setShowListingsError] = useState(false);
+   const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();
 
   const handleFileUpload = async (file) => {
@@ -40,7 +40,7 @@ export default function Profile() {
 
 useEffect(() => {
   if (file) {
-    // Defer the upload call to avoid synchronous setState within the effect
+     //Defer the upload call to avoid synchronous setState within the effect
     const id = setTimeout(() => {
       handleFileUpload(file);
     }, 0);
@@ -61,6 +61,7 @@ useEffect(() => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
         body: JSON.stringify(formData),
       });
       const data = await res.json();
@@ -108,41 +109,41 @@ useEffect(() => {
     }
   };
 
-  // const handleShowListings = async () => {
-  //   try {
-  //     setShowListingsError(false);
-  //     const res = await fetch(`/api/user/listings/${currentUser._id}`);
-  //     const data = await res.json();
-  //     if (data.success === false) {
-  //       setShowListingsError(true);
-  //       return;
-  //     }
+   const handleShowListings = async () => {
+     try {
+       setShowListingsError(false);
+       const res = await fetch(`/api/user/listings/${currentUser._id}`);
+       const data = await res.json();
+       if (data.success === false) {
+         setShowListingsError(true);
+         return;
+       }
 
-  //     setUserListings(data);
-  //   } catch (error) {
-  //     setShowListingsError(true);
-  //     console.Consolelog(error)
-  //   }
-  // };
+       setUserListings(data);
+     } catch (error) {
+       setShowListingsError(true);
+       console.Consolelog(error)
+     }
+   };
 
-  // const handleListingDelete = async (listingId) => {
-  //   try {
-  //     const res = await fetch(`/api/listing/delete/${listingId}`, {
-  //       method: "DELETE",
-  //     });
-  //     const data = await res.json();
-  //     if (data.success === false) {
-  //       console.log(data.message);
-  //       return;
-  //     }
+   const handleListingDelete = async (listingId) => {
+     try {
+       const res = await fetch(`/api/listing/delete/${listingId}`, {
+         method: "DELETE",
+       });
+       const data = await res.json();
+       if (data.success === false) {
+         console.log(data.message);
+         return;
+       }
 
-  //     setUserListings((prev) =>
-  //       prev.filter((listing) => listing._id !== listingId)
-  //     );
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // };
+       setUserListings((prev) =>
+         prev.filter((listing) => listing._id !== listingId)
+       );
+     } catch (error) {
+       console.log(error.message);
+     }
+   };
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -222,7 +223,7 @@ useEffect(() => {
         </span>
       </div>
 
-      {/* <p className="text-red-700 mt-5">{error ? error : ""}</p>
+      <p className="text-red-700 mt-5">{error ? error : ""}</p>
       <p className="text-green-700 mt-5">
         {updateSuccess ? "User is updated successfully!" : ""}
       </p>
@@ -271,7 +272,7 @@ useEffect(() => {
             </div>
           ))}
         </div>
-      )} */}
+      )} 
     </div>
   );
 }

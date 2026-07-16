@@ -124,8 +124,8 @@ export default function CreateListing() {
     try {
       if (formData.imageUrls.length < 1)
         return setError('You must upload at least one image');
-      if (+formData.discountPrice < +formData.regularPrice)
-        return setError('Regular price must be lower than discount price');
+      if (+formData.regularPrice < +formData.discountPrice)
+        return setError('Discount price must be lower than regular price');
       setLoading(true);
       setError(false);
       const res = await fetch('/api/listing/create', {
@@ -133,6 +133,7 @@ export default function CreateListing() {
         headers: {
           'Content-Type': 'application/json',
         },
+          credentials: 'include',
         body: JSON.stringify({
           ...formData,
           userRef: currentUser._id,

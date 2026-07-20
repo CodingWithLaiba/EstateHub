@@ -227,7 +227,7 @@ useEffect(() => {
       <p className="text-green-700 mt-5">
         {updateSuccess ? "User is updated successfully!" : ""}
       </p>
-      <button onClick={handleShowListings} className="text-green-700 w-full">
+      <button onClick={handleShowListings} className=" cursor-pointer text-green-700 w-full">
         Show Listings
       </button>
       <p className="text-red-700 mt-5">
@@ -261,12 +261,12 @@ useEffect(() => {
               <div className="flex flex-col item-center">
                 <button
                   onClick={() => handleListingDelete(listing._id)}
-                  className="text-red-700 uppercase"
+                  className="cursor-pointer text-red-700 uppercase"
                 >
                   Delete
                 </button>
                 <Link to={`/update-listing/${listing._id}`}>
-                  <button className="text-green-700 uppercase">Edit</button>
+                  <button className="text-green-700 uppercase cursor-pointer">Edit</button>
                 </Link>
               </div>
             </div>

@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import ListingItems from "../components/ListingItems";
 
 export default function Search() {
   const [sidebardata, setSidebardata] = useState({
@@ -10,10 +11,9 @@ export default function Search() {
     sort: "created_at",
     order: "desc",
   });
-  const [showMore,setShowMore]=useState(false)
-  const [loading,setLoading]= useState(false)
-  const [listings,setListings]=useState({})
-
+  const [showMore, setShowMore] = useState(false);
+  const [loading, setLoading] = useState(false);
+const [listings, setListings] = useState([]);
   const navigate = useNavigate();
   console.log(sidebardata);
 
@@ -111,7 +111,19 @@ export default function Search() {
     const searchQuery = urlParams.toString();
     navigate(`/search?${searchQuery}`);
   };
-
+  const onShowMoreClick = async () => {
+    const numberOfListings = listings.length;
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.set("startIndex", startIndex);
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) {
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);
+  };
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7  border-b-2 md:border-r-2 border-gray-200 md:min-h-screen">
@@ -218,6 +230,30 @@ export default function Search() {
         <h1 className="text-3xl font-semibold border-b border-gray-50 p-3 text-slate-700 mt-5">
           Listing results:
         </h1>
+        <div className="p-4 flex flex-wrap justify-start gap-4">
+          {" "}
+          {!loading && listings.length === 0 && (
+            <p className="text-xl text-slate-700">No listing found!</p>
+          )}
+          {loading && (
+            <p className="text-xl text-slate-700 text-center w-full">
+              Loading...
+            </p>
+          )}
+          {!loading &&
+            Array.isArray(listings) &&
+            listings.map((listing) => (
+              <ListingItems key={listing._id} listing={listing} />
+            ))}
+          {showMore && (
+            <button
+              onClick={onShowMoreClick}
+              className="text-green-700 hover:underline p-7 text-center w-full"
+            >
+              Show more
+            </button>
+          )}
+        </div>
       </div>
     </div>
   );
